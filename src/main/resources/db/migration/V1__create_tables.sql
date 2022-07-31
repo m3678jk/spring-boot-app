@@ -1,0 +1,15 @@
+--CREATE TABLE  "user"(
+--id bigint NOT NULL AUTO_INCREMENT,
+--email varchar(100) NOT NULL,
+--first_name varchar(100) NOT NULL,
+--last_name varchar(100),
+--password varchar(100),
+--primary key (id)
+--);
+--
+--
+--CREATE TABLE role(
+--id bigint NOT NULL AUTO_INCREMENT,
+--name varchar(50) NOT NULL,
+--primary key (id)
+--);
