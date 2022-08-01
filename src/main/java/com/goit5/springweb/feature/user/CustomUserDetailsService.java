@@ -1,72 +1,24 @@
 package com.goit5.springweb.feature.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
-    private static final Map<String, String> USERS = Map.of(
-            "user", "user",
-            "admin", "admin"
-    );
-    // private final RoleRepository roleRepository;
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (!USERS.containsKey(username)) {
-            throw new UsernameNotFoundException("User not found");
-        }
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user= userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
-        String role = username.toUpperCase();
-        String password = USERS.get(username);
-
-        return new UserDetails() {
-            @Override
-            public Collection<? extends GrantedAuthority> getAuthorities() {
-                return Collections.singleton(() -> role);
-            }
-
-            @Override
-            public String getPassword() {
-                return password;
-            }
-
-            @Override
-            public String getUsername() {
-                return username;
-            }
-
-            @Override
-            public boolean isAccountNonExpired() {
-                return true;
-            }
-
-            @Override
-            public boolean isAccountNonLocked() {
-                return true;
-            }
-
-            @Override
-            public boolean isCredentialsNonExpired() {
-                return true;
-            }
-
-            @Override
-            public boolean isEnabled() {
-                return true;
-            }
-        };
+        return SecurityUser.fromUser(user);
     }
 
 

@@ -1,15 +1,35 @@
---CREATE TABLE  "user"(
---id bigint NOT NULL AUTO_INCREMENT,
---email varchar(100) NOT NULL,
---first_name varchar(100) NOT NULL,
---last_name varchar(100),
---password varchar(100),
---primary key (id)
---);
---
---
---CREATE TABLE role(
---id bigint NOT NULL AUTO_INCREMENT,
---name varchar(50) NOT NULL,
---primary key (id)
---);
+CREATE TABLE t_user(
+id bigint NOT NULL AUTO_INCREMENT,
+first_name varchar(300) NOT NULL,
+last_name varchar(300) NOT NULL,
+email varchar(300) NOT NULL,
+password varchar(300),
+primary key (id)
+);
+
+
+CREATE TABLE role(
+id bigint NOT NULL AUTO_INCREMENT,
+name varchar(50) NOT NULL,
+primary key (id)
+);
+
+INSERT INTO role (name) values
+("ADMIN"),
+("USER")
+;
+
+CREATE TABLE role_users(
+    roles_id bigint NOT NULL,
+    users_id bigint NOT NULL,
+    PRIMARY KEY (roles_id, users_id),
+    FOREIGN KEY (roles_id) REFERENCES role(id),
+    FOREIGN KEY(users_id) REFERENCES t_user(id)
+);
+INSERT INTO t_user(first_name,last_name,email,password) values
+("name", "password:111", "test@mail", "$2a$12$xLpK3hAhnHWtvRUHGxIJjuRxMbJ0N1cJHYcmzZPblhrEe.dqMVuFy")
+;
+
+INSERT INTO role_users values
+(1,1)
+;
