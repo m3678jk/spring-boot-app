@@ -40,7 +40,7 @@ public class WebSecurityConfig {
 
                 .authorizeRequests()
 //                .antMatchers("/register", "/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/dashboard").hasAnyRole()
+                .antMatchers("/dashboard").hasAnyRole()
                 .antMatchers(HttpMethod.POST, "/user").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/user").hasRole("ADMIN")
                 .antMatchers("/register", "/login").permitAll()
