@@ -1,4 +1,4 @@
-package com.goit5.springweb.controller;//package com.goit5.springbootwebapp.controller;
+package com.goit5.springweb.feature.product;//package com.goit5.springbootwebapp.controller;
 //
 //import com.goit5.springbootwebapp.entity.Product;
 //import org.springframework.stereotype.Controller;

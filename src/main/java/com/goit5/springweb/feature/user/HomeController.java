@@ -1,4 +1,4 @@
-package com.goit5.springweb.home;
+package com.goit5.springweb.feature.user;
 
 import com.goit5.springweb.feature.role.Role;
 import com.goit5.springweb.feature.role.RoleRepository;
@@ -19,6 +19,8 @@ import java.util.Optional;
 @RestController
 @AllArgsConstructor
 public class HomeController {
+
+    //TODO email should be unique
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 

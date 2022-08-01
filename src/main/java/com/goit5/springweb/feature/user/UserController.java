@@ -2,12 +2,9 @@
 //
 //import com.goit5.springweb.exception.ValidationException;
 //import lombok.AllArgsConstructor;
-//import lombok.Builder;
 //import lombok.extern.java.Log;
 //import org.springframework.http.ResponseEntity;
-//import org.springframework.ui.Model;
 //import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.context.request.WebRequest;
 //import org.springframework.web.servlet.ModelAndView;
 //
 //import java.util.List;
@@ -19,18 +16,18 @@
 //@AllArgsConstructor
 //@Log //  из ломбок библиотеки чтобы выводить логи.
 //public class UserController {
-//    private final User.UserService userService;
+//    private final UserService userService;
 //
 //    @PostMapping("/save")
 //    public UserDto saveUsers(@RequestBody UserDto userDto) throws ValidationException {
 //        log.info("Handling save users: " + userDto);
 //        return userService.saveUser(userDto);
 //    }
-//    @GetMapping("/registration")
-//    public ModelAndView showRegistrationForm(@RequestBody UserDto userDto) {
-//        ModelAndView result = new ModelAndView("user-log");
-//        return result;
-//    }
+////    @GetMapping("/registration")
+////    public ModelAndView showRegistrationForm(@RequestBody UserDto userDto) {
+////        ModelAndView result = new ModelAndView("user-log");
+////        return result;
+////    }
 //
 //    @GetMapping("/findAll")
 //    public List<UserDto> findAllUsers() {
