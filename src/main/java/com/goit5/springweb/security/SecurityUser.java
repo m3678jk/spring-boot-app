@@ -1,8 +1,9 @@
-package com.goit5.springweb.feature.user;
+package com.goit5.springweb.security;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.goit5.springweb.feature.role.Role;
+import com.goit5.springweb.feature.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,7 @@ public class SecurityUser implements UserDetails {
     private String firstName;
     private String lastName;
 
-    private List<SimpleGrantedAuthority> authorities ;
+      private List<SimpleGrantedAuthority> authorities ;
 
     @Override
     public String toString() {
@@ -66,11 +67,7 @@ public class SecurityUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-//    public enum Role{
-//        USER,
-//        ADMIN
-//
-//    }
+
     public static UserDetails fromUser(User user){
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getRoles());
     }
