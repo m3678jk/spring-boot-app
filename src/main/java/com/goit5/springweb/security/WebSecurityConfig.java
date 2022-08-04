@@ -37,13 +37,15 @@ public class WebSecurityConfig {
 
 
                 .authorizeRequests()
-//                .antMatchers("/register", "/login").permitAll()
+                .antMatchers("/register", "/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/dashboard").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers(HttpMethod.POST, "/user").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/user").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/get-users").hasAnyAuthority("ADMIN", "USER")
+
+                .antMatchers(HttpMethod.POST, "/users").hasAuthority("ADMIN")
+                .antMatchers( "/users/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET, "/superadmin").authenticated()
 
-                .antMatchers("/register", "/login").permitAll()
+//                .antMatchers("/register", "/login").permitAll()
                 .and()
                 .formLogin();
 //                .formLogin(Customizer.withDefaults());

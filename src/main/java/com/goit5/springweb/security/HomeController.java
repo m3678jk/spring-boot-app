@@ -1,32 +1,22 @@
 package com.goit5.springweb.security;
 
+import com.goit5.springweb.exception.ValidationException;
 import com.goit5.springweb.feature.role.Role;
 import com.goit5.springweb.feature.role.RoleRepository;
 import com.goit5.springweb.feature.user.User;
 import com.goit5.springweb.feature.user.UserDto;
 import com.goit5.springweb.feature.user.UserRepository;
-import com.goit5.springweb.security.AuthChecker;
+import com.goit5.springweb.feature.user.UserServiceImpl;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.TestingAuthenticationToken;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.net.http.HttpResponse;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -36,24 +26,37 @@ public class HomeController {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder bcryptEncoder;
+    private final UserServiceImpl userService;
     private final AuthChecker authChecker;
 //    private final AuthenticationManager authenticationManager;
 
-    @PostMapping("/register")
-    public ModelAndView register(@RequestBody UserDto user) {
-        User newUser = new User();
-        newUser.setEmail(user.getEmail());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        newUser.setFirstName((user.getFirstName()));
-        newUser.setLastName(user.getLastName());
-        Optional<Role> optionalRole = roleRepository.findByName("USER");
-        Role role = optionalRole.get();
-        newUser.addRoles(role);
-        System.out.println(newUser);
-        userRepository.save(newUser);
 
-        return new ModelAndView("home");
+    @GetMapping("/get-users")
+    public ModelAndView getUser() {
+        List<User> list = userService.findAll();
+
+        ModelAndView modelAndView = new ModelAndView("user-info");
+        modelAndView.addAllObjects(Map.of("list",list));
+
+        return modelAndView;
+
     }
+//    @PostMapping("/register")
+//    public ModelAndView register(@RequestBody UserDto user) throws ValidationException {
+////        User newUser = new User();
+////        newUser.setEmail(user.getEmail());
+////        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+////        newUser.setFirstName((user.getFirstName()));
+////        newUser.setLastName(user.getLastName());
+////        Optional<Role> optionalRole = roleRepository.findByName("USER");
+////        Role role = optionalRole.get();
+////        newUser.addRoles(role);
+////        System.out.println(newUser);
+////        userRepository.save(newUser);
+//            userService.saveUser(user);
+//
+//        return new ModelAndView("home");
+//    }
 
 
     @PostMapping("/login")
@@ -81,5 +84,21 @@ public class HomeController {
             return new ModelAndView("superadmin");
         }
         return new ModelAndView("forbidden");
+    }
+
+    @GetMapping("/register")
+    public ModelAndView showForm(UserDto user) {
+
+        List<String> listRoles = Arrays.asList("ARMIN", "USER");
+        ModelAndView modelAndView = new ModelAndView("simple-registration");
+        modelAndView.addAllObjects(Map.of("user", user, "listRoles", listRoles));
+        return modelAndView;
+    }
+
+    @PostMapping("/register")
+    public String submitForm(@ModelAttribute("user") UserDto user) throws ValidationException {
+        System.out.println(user);
+        userService.saveUser(user);
+        return "register_success";
     }
 }

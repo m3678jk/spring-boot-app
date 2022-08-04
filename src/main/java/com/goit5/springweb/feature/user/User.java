@@ -4,7 +4,6 @@ package com.goit5.springweb.feature.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.goit5.springweb.feature.role.Role;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.HashSet;

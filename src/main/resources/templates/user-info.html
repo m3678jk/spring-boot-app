@@ -1,0 +1,78 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+<title>Developer Management</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+</head>
+
+<body>
+     <header>
+        <nav class="navbar navbar-expand-md navbar-dark"
+             style="background-color: tomato">
+            <div>
+                <a href="https://www.javaguides.net" class="navbar-brand"> Developer Management</a>
+            </div>
+
+            <ul class="navbar-nav">
+                <li><a href="/"
+                       class="nav-link">Main menu</a></li>
+            </ul>
+        </nav>
+    </header>
+    <br>
+
+
+        <div class="row">
+            <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
+            <div class="container">
+                <h3 class="text-center">List of Users</h3>
+                <hr>
+                <div class="container text-left">
+                    <a href="developers?action=new" class="btn btn-success">Add
+                        New User</a>
+                </div>
+                <br>
+                <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                             <tr th:each ="user : ${list}">
+                                <td th:text="${user.id}"></td>
+                                <td th:text="${user.firstName}"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td th:text="${user.email}"></td>
+                                 <td th:text="${user.roles}"></td>
+
+                                 <!--                                <tr th:each="r: user.roles">-->
+<!--                                 <td th:text="${r}"></td>-->
+<!--                             </tr>-->
+
+                                <td><a th:href="'/developers?action=edit&id=' + ${user.id}">Edit</a>
+                                <a th:href="'/developers?action=delete&id='+ ${user.id}">Delete</a>
+                                <br>
+                                <a th:href="'/skills?action=new&id='+ ${user.id}">Add Role</a>
+                                <br>
+                                <a th:href="'/skills?action=redirect&id='+ ${user.id}">Update Role</a>
+                                <br>
+                                <a th:href="'/skills?action=remove&id='+ ${user.id}">Delete Role</a>
+                                </td>
+                             </tr>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+</body>
+
+</html>

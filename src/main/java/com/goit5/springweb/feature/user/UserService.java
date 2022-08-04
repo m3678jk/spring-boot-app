@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface UserService {
 
-    UserDto saveUser(UserDto userDto) throws ValidationException;
+    void saveUser(UserDto userDto) throws ValidationException;
 
-    void deleteUser(long userId);
+    void deleteUser(String email);
 
-    UserDto findByEmail(String email);
+    User findByEmail(String email);
 
-    List<UserDto> findAll();
+    List<User> findAll();
 }
 
 

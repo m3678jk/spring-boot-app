@@ -1,26 +1,79 @@
 package com.goit5.springweb.feature.user;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
+import com.goit5.springweb.feature.role.Role;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.Column;
-import javax.persistence.Transient;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
-
-//Именно в этот класс мы будем превращать нашу сущность юзер когда достанем данные из базы.
-//Также этот класс будет нам служить трансфером между клиентом, контроллером и сервисом.
 @Data
 
-public class UserDto {
-//    private long id;
+@AllArgsConstructor
+public class UserDto implements UserDetails {
     private String email;
+    @JsonIgnore
+    private String password;
+
+//    @Transient
+//    private String passwordConfirm;
     private String firstName;
     private String lastName;
 
-    private String password;
-//    @Transient
-//    private String passwordConfirm;
-}
+      private List<SimpleGrantedAuthority> authorities ;
 
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                "password" + password+
+                '}';
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities
+                ;
+    }
+
+
+    @Override
+    public String getUsername() {
+        return getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public static UserDetails fromUser(User user){
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getRoles());
+    }
+
+
+}
