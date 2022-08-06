@@ -15,8 +15,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
 
     @Override
     public void saveUser(UserDto userDto) throws ValidationException {
@@ -62,12 +60,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-
         User user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        List<Role> roles = user.getRoles();
+        List<Role> reserve = List.copyOf(roles);
+        for (int i = 0; i < reserve.size(); i++) { // does not work with for each loop and without copy of real list
+            Role role = reserve.get(i);
+            user.removeRoles(role);
+        }
         userRepository.delete(user);
-
     }
-
 
     @Override
     public User findByEmail(String email) {
@@ -77,7 +78,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         List<User> list = userRepository.findAll();
-//        System.out.println("list = " + list);
         return list;
     }
 
@@ -101,7 +101,6 @@ public class UserServiceImpl implements UserService {
                 user.removeRoles(r);
             }
         }
-
         userRepository.save(user);
     }
 

@@ -3,6 +3,8 @@ package com.goit5.springweb.feature.role;
 import com.goit5.springweb.feature.user.User;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -23,6 +25,7 @@ public class Role implements GrantedAuthority {
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<User> users = new ArrayList<>();
 
     @Override

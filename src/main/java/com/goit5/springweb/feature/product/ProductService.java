@@ -1,4 +1,4 @@
-//package com.goit5.springweb.service;
-//
-//public class ProductService {
-//}
+package com.goit5.springweb.feature.product;
+
+public class ProductService {
+}

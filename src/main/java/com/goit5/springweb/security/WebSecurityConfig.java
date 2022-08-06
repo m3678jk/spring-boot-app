@@ -39,10 +39,8 @@ public class WebSecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/main", "/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/dashboard").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers(HttpMethod.GET, "/app/users/**").hasAnyAuthority("ADMIN", "USER")
-
+                .antMatchers(HttpMethod.GET, "/app/users/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST, "/app/users/**").hasAuthority("ADMIN")
-//                .antMatchers(HttpMethod.DELETE, "/app/users/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET, "/superadmin").authenticated()
 
 //                .antMatchers("/register", "/login").permitAll()

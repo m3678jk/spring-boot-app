@@ -12,7 +12,6 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
-
 @NoArgsConstructor
 @Table(name = "t_user")
 public class User {

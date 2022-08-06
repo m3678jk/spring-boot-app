@@ -23,9 +23,10 @@ CREATE TABLE role_users(
     roles_id bigint NOT NULL,
     users_id bigint NOT NULL,
     PRIMARY KEY (roles_id, users_id),
-    FOREIGN KEY (roles_id) REFERENCES role(id),
-    FOREIGN KEY(users_id) REFERENCES t_user(id)
+    FOREIGN KEY (roles_id) REFERENCES role(id) ON DELETE CASCADE,
+    FOREIGN KEY(users_id) REFERENCES t_user(id) ON DELETE CASCADE
 );
+
 INSERT INTO t_user(first_name,last_name,email,password) values
 ("name", "password:111", "test@mail", "$2a$12$xLpK3hAhnHWtvRUHGxIJjuRxMbJ0N1cJHYcmzZPblhrEe.dqMVuFy")
 ;
@@ -33,3 +34,22 @@ INSERT INTO t_user(first_name,last_name,email,password) values
 INSERT INTO role_users values
 (1,1)
 ;
+
+CREATE TABLE producer(
+id bigint NOT NULL AUTO_INCREMENT,
+name varchar(300) NOT NULL,
+primary key (id)
+);
+
+
+CREATE TABLE product(
+    id bigint NOT NULL AUTO_INCREMENT,
+    name varchar(300) NOT NULL,
+    price DECIMAL NOT NULL,
+    producer_id bigint NOT NULL ,
+    PRIMARY KEY (id),
+    FOREIGN KEY (producer_id) REFERENCES producer(id) ON DELETE CASCADE
+
+)
+
+
