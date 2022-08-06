@@ -6,9 +6,7 @@ import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -25,7 +23,7 @@ public class Role implements GrantedAuthority {
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
-    private Set<User> users = new HashSet<>();
+    private List<User> users = new ArrayList<>();
 
     @Override
     public String getAuthority() {

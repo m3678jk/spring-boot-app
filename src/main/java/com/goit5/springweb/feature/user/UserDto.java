@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Data
-
 @AllArgsConstructor
 public class UserDto implements UserDetails {
+    private long id;
     private String email;
     @JsonIgnore
     private String password;
@@ -28,7 +28,7 @@ public class UserDto implements UserDetails {
     private String lastName;
 
       private List<SimpleGrantedAuthority> authorities ;
-
+    private List<Role> roles;
     @Override
     public String toString() {
         return "UserDto{" +

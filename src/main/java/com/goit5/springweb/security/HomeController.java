@@ -86,19 +86,5 @@ public class HomeController {
         return new ModelAndView("forbidden");
     }
 
-    @GetMapping("/register")
-    public ModelAndView showForm(UserDto user) {
 
-        List<String> listRoles = Arrays.asList("ARMIN", "USER");
-        ModelAndView modelAndView = new ModelAndView("simple-registration");
-        modelAndView.addAllObjects(Map.of("user", user, "listRoles", listRoles));
-        return modelAndView;
-    }
-
-    @PostMapping("/register")
-    public String submitForm(@ModelAttribute("user") UserDto user) throws ValidationException {
-        System.out.println(user);
-        userService.saveUser(user);
-        return "register_success";
-    }
 }

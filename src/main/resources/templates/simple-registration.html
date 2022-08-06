@@ -7,29 +7,66 @@
 <body>
 <div align="center">
     <h1>User Registration</h1>
-    <form action="#" th:action="@{/register}" method="post" th:object="${user}">
+    <form action="#" th:action="@{/app/users/create-new}" method="post" th:object="${user}">
         <label>First name:</label>
-        <input type="text" th:field="*{firstName}" /><br/>
+        <input type="text" th:field="*{firstName}"/><br/>
 
-        <label>last name:</label>
-        <input type="text" th:field="*{lastName}" /><br/>
+        <label>Last name:</label>
+        <input type="text" th:field="*{lastName}"/><br/>
 
         <label>E-mail:</label>
-        <input type="text" th:field="*{email}" /><br/>
+        <input type="text" th:field="*{email}"/><br/>
 
         <label>Password:</label>
-        <input type="password" th:field="*{password}" /><br/>
+        <input type="password" th:field="*{password}"/><br/>
+
+        <!--        <label>Role:</label>-->
+        <!--        <select th:name="role" required="required">-->
+        <!--            <option th:value="'USER'" th:text="USER"></option>-->
+        <!--            <option th:value="'ADMIN'" th:text="ADMIN"></option>-->
+        <!--        </select>-->
+
+        <!--        <select>-->
+        <!--            <option th:each="r : ${roleList}" th:text= "${r.name}" th:value="${r.name}">-->
+        <!--            </option>-->
+        <!--        </select>-->
+
+        <label>Roles:
+            <input type="checkbox" name="roles"
+                   th:each="role : ${allRoles}"
+                   th:text="${role.name}"
+                   th:value="${role.id}"
+                   th:field="*{roles}"
+            />
+        </label>
+
+        <!--            <li>-->
+        <!--                <input th:field="role2"  type="checkbox" th:value="USER" />-->
+        <!--                <input name="_features" type="hidden" value="on" />-->
+        <!--                <label >User</label>-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--                <input id="features3" name="features" type="checkbox" value="PH_CORRECTOR" />-->
+        <!--                <input name="_features" type="hidden" value="on" />-->
+        <!--                <label for="features3">PH Corrector used</label>-->
+        <!--            </li>-->
+        <!--        </ul>-->
 
 
-<!--        <label>Roles:</label>-->
-<!--        <select th:field="*{listRoles}">-->
-<!--            <option th:each="p : ${listRoles}" th:value="${p}" th:text="${p}" />-->
-<!--        </select>-->
-<!--        <br/>-->
+        <!--        <select id="multiple-hobbies" th:field="*{hobbieslist}" multiple="multiple">-->
 
+        <!--            <option th:each="hobby: ${predefinedhobbylist}"-->
+        <!--                    th:value="${hobby}" th:text="${hobby}">-->
+        <!--&lt;!&ndash;        </select>&ndash;&gt;-->
+        <!--                <label>Roles:</label>-->
+        <!--        <select th:field="*{listRoles}">-->
+        <!--            <ul th:each="p : ${listRoles}" th:value="${p}" th:text="${p}" />-->
+        <!--        </select>-->
+        <!--        <br/>-->
 
 
         <button type="submit">Register</button>
+        <input type="hidden" th:field="*{id}"/>
     </form>
 </div>
 </body>

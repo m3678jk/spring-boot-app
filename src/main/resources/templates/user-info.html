@@ -32,7 +32,7 @@
                 <h3 class="text-center">List of Users</h3>
                 <hr>
                 <div class="container text-left">
-                    <a href="developers?action=new" class="btn btn-success">Add
+                    <a href="/app/users/create-new" class="btn btn-success">Add
                         New User</a>
                 </div>
                 <br>
@@ -59,8 +59,8 @@
 <!--                                 <td th:text="${r}"></td>-->
 <!--                             </tr>-->
 
-                                <td><a th:href="'/developers?action=edit&id=' + ${user.id}">Edit</a>
-                                <a th:href="'/developers?action=delete&id='+ ${user.id}">Delete</a>
+                                <td><a th:href="'/app/users/update?id=' + ${user.id}">Edit</a>
+                                <a th:href="'/app/users/delete/'+ ${user.id}">Delete</a>
                                 <br>
                                 <a th:href="'/skills?action=new&id='+ ${user.id}">Add Role</a>
                                 <br>

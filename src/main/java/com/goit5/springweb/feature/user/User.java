@@ -6,9 +6,7 @@ import com.goit5.springweb.feature.role.Role;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -30,7 +28,7 @@ public class User {
     private String firstName;
     private String lastName;
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
-    private Set<Role> roles = new HashSet<>() ;
+    private List<Role> roles = new ArrayList<>() ;
 
     public void addRoles(Role role) {
         roles.add(role);

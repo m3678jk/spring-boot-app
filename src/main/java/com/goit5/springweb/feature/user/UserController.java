@@ -2,9 +2,11 @@ package com.goit5.springweb.feature.user;
 
 import com.goit5.springweb.exception.ValidationException;
 import com.goit5.springweb.feature.role.Role;
+import com.goit5.springweb.feature.role.RoleService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 @Log //  из ломбок библиотеки чтобы выводить логи.
 public class UserController {
     private final UserService userService;
+    private final RoleService roleService;
 
 //    @PostMapping("/save")
 //    public ModelAndView saveUser(@RequestBody UserDto user) throws ValidationException {
@@ -31,35 +34,66 @@ public class UserController {
 //    }
 
 
-    @GetMapping("/registration")
-    public ModelAndView showRegistrationForm() {
-        ModelAndView result = new ModelAndView("simple-registration");
-        return result;
-    }
-
-    @GetMapping("/findAll")
-    public ModelAndView  findAll() {
+    @GetMapping("/list")
+    public ModelAndView findAll() {
         log.info("Handling find all users request");
-        List<User> list =userService.findAll();
+        List<User> list = userService.findAll();
         ModelAndView modelAndView = new ModelAndView("user-info");
         modelAndView.addAllObjects(Map.of("list", list));
-        List<List<String>> collect = list.stream().map(it -> it.getRoles().stream().map(Role::getName).collect(Collectors.toList())).collect(Collectors.toList());
-        modelAndView.addAllObjects(Map.of("collect", collect));
-        System.out.println(collect);
+//        List<List<String>> collect = list.stream().map(it -> it.getRoles().stream().map(Role::getName).collect(Collectors.toList())).collect(Collectors.toList());
+//        modelAndView.addAllObjects(Map.of("collect", collect));
+//        System.out.println(collect);
         return modelAndView;
 
     }
-//    @GetMapping("/findByEmail")
-//    public UserDto findByLogin(@RequestParam String email) {
-//        log.info("Handling find by login request: " + email);
-//        return userService.findByEmail(email);
+
+    //TODO without BindinResult doesn't work . find out why
+    @GetMapping("/create-new")
+    public ModelAndView showForm(UserDto user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView("simple-registration");
+        List<Role> roles = roleService.findAll();
+        modelAndView.addAllObjects(Map.of("user", user, "allRoles", roles));
+        System.out.println("user.getId() = " + user.getId());
+        return modelAndView;
+    }
+
+
+//    @ModelAttribute("roleList")
+//    public List<Role> getList(){
+//        return roleService.findAll();
 //    }
-//
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Void> deleteUsers(@PathVariable Integer id) {
-//        log.info("Handling delete user request: " + id);
-//        userService.deleteUser(id);
-//        return ResponseEntity.ok().build();
-//    }
+    @PostMapping("/create-new")
+    public RedirectView submitForm(@ModelAttribute("user") UserDto user) throws ValidationException {
+//          if(userService.findById(user.getId())!=null) {
+              userService.saveUser(user);
+//              System.out.println("user = " + user);
+//              return new RedirectView("/app/users/list");
+//          } else {
+//              userService.updateUser(user, user);
+//              System.out.println("user = " + user);
+//          }
+
+        return new RedirectView("/app/users/list");
+    }
+
+    @RequestMapping("/update")
+    public ModelAndView showEditForm(@RequestParam Long id) {
+        log.info("Handling update user request: " + id);
+        ModelAndView modelAndView = new ModelAndView("simple-registration");
+        User user = userService.findById(id);
+        List<Role> roles = roleService.findAll();
+//        List<Role> userRoles = user.getRoles();
+        System.out.println("roles.toString() = " + roles.toString());
+        System.out.println("user = " + user);
+        modelAndView.addAllObjects(Map.of("user", user, "allRoles", roles));
+        return modelAndView;
+    }
+    //TODO fix cascade delete user + relation in role
+    @RequestMapping("/delete/{id}") //Post and Delete does not work
+    public RedirectView deleteUsers(@PathVariable Long id) {
+        log.info("Handling delete user request: " + id);
+        userService.deleteUser(id);
+        return new RedirectView("/app/users/list");
+    }
 //
 }
