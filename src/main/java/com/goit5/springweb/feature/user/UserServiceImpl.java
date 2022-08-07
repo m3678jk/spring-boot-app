@@ -1,15 +1,11 @@
 package com.goit5.springweb.feature.user;
 
-import com.goit5.springweb.exception.ValidationException;
 import com.goit5.springweb.feature.role.Role;
-import com.goit5.springweb.feature.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,11 +13,11 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public void saveUser(UserDto userDto) throws ValidationException {
-        List<Role> usersDtoRoles = userDto.getRoles();
+    public void saveUser(UserSecurity userSecurity) {
+        List<Role> usersDtoRoles = userSecurity.getRoles();
 
-        if (userDto.getId() != 0) {
-            User user = userRepository.findById(userDto.getId()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        if (userSecurity.getId() != 0) {
+            User user = userRepository.findById(userSecurity.getId()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
             List<Role> usersRoles = user.getRoles();
 
@@ -36,10 +32,10 @@ public class UserServiceImpl implements UserService {
                 }
             }
 
-            user.setEmail(userDto.getEmail());
-            user.setLastName(userDto.getLastName());
-            user.setPassword(userDto.getPassword());
-            user.setFirstName(userDto.getFirstName());
+            user.setEmail(userSecurity.getEmail());
+            user.setLastName(userSecurity.getLastName());
+            user.setPassword(userSecurity.getPassword());
+            user.setFirstName(userSecurity.getFirstName());
 
             userRepository.save(user);
         } else {
@@ -48,10 +44,10 @@ public class UserServiceImpl implements UserService {
             for (Role r : usersDtoRoles) {
                 newUser.addRoles(r);
             }
-            newUser.setEmail(userDto.getEmail());
-            newUser.setLastName(userDto.getLastName());
-            newUser.setPassword(userDto.getPassword());
-            newUser.setFirstName(userDto.getFirstName());
+            newUser.setEmail(userSecurity.getEmail());
+            newUser.setLastName(userSecurity.getLastName());
+            newUser.setPassword(userSecurity.getPassword());
+            newUser.setFirstName(userSecurity.getFirstName());
             userRepository.save(newUser);
         }
 
@@ -82,15 +78,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(UserDto userDto, Long id) {
+    public void updateUser(UserSecurity userSecurity, Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        user.setEmail(userDto.getEmail());
+        user.setEmail(userSecurity.getEmail());
         user.setLastName(user.getLastName());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(userSecurity.getPassword());
         user.setFirstName(user.getFirstName());
 
         List<Role> usersRoles = user.getRoles();
-        List<Role> usersDtoRoles = userDto.getRoles();
+        List<Role> usersDtoRoles = userSecurity.getRoles();
         for (Role r : usersDtoRoles) {
             if (!usersRoles.contains(r)) {
                 user.addRoles(r);

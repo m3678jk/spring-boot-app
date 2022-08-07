@@ -40,16 +40,26 @@ id bigint NOT NULL AUTO_INCREMENT,
 name varchar(300) NOT NULL,
 primary key (id)
 );
-
+INSERT INTO producer (name) values
+("forex"),
+("codex")
+;
 
 CREATE TABLE product(
     id bigint NOT NULL AUTO_INCREMENT,
     name varchar(300) NOT NULL,
-    price DECIMAL NOT NULL,
+    price DECIMAL(4,2) NOT NULL,
     producer_id bigint NOT NULL ,
     PRIMARY KEY (id),
     FOREIGN KEY (producer_id) REFERENCES producer(id) ON DELETE CASCADE
 
-)
+);
+
+
+INSERT INTO product (name, price, producer_id) values
+('Aba', 13.12, 1),
+('Bbb', 14.22, 1)
+;
+
 
 

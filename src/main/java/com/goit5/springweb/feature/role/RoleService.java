@@ -1,12 +1,11 @@
 package com.goit5.springweb.feature.role;
 
-import com.goit5.springweb.exception.ValidationException;
 
 import java.util.List;
 
 public interface RoleService {
 
-    void saveRole(Role role) throws ValidationException;
+    void saveRole(Role role);
 
     void deleteRole(Long id);
 

@@ -28,10 +28,10 @@
 
 <div class="row">
     <div class="container">
-        <h3 class="text-center">Product of Users</h3>
+        <h3 class="text-center">List of Products</h3>
         <hr>
         <div class="container text-left">
-            <a href="/app/product/create-new" class="btn btn-success">Add
+            <a href="/app/products/create-new" class="btn btn-success">Add
                 New Product</a>
         </div>
         <br>
@@ -42,7 +42,6 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Producer</th>
-                <th>Role</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -51,10 +50,10 @@
                 <td th:text="${p.id}"></td>
                 <td th:text="${p.name}"></td>
                 <td th:text="${p.price}"></td>
-                <td th:text="${p.producer}"></td>
+                <td th:text="${p.producer.name}"></td>
 
-                <td><a th:href="'/app/product/update?id=' + ${p.id}">Edit</a>
-                    <a th:href="'/app/product/delete/'+ ${p.id}">Delete</a>
+                <td><a th:href="'/app/products/update?id=' + ${p.id}">Edit</a>
+                    <a th:href="'/app/products/delete/'+ ${p.id}">Delete</a>
                     <br>
                 </td>
             </tr>

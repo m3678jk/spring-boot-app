@@ -8,22 +8,17 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Data
 @AllArgsConstructor
-public class UserDto implements UserDetails {
+public class UserSecurity implements UserDetails {
     private long id;
     private String email;
     @JsonIgnore
     private String password;
-
-//    @Transient
-//    private String passwordConfirm;
     private String firstName;
     private String lastName;
 
@@ -31,7 +26,7 @@ public class UserDto implements UserDetails {
     private List<Role> roles;
     @Override
     public String toString() {
-        return "UserDto{" +
+        return "UserSecurity{" +
                 "email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

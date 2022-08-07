@@ -1,6 +1,5 @@
 package com.goit5.springweb.feature.role;
 
-import com.goit5.springweb.exception.ValidationException;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +35,7 @@ public class RoleController {
     }
 
     @PostMapping("/create-new")
-    public RedirectView submitForm(@ModelAttribute("role") Role role) throws ValidationException {
+    public RedirectView submitForm(@ModelAttribute("role") Role role){
         roleService.saveRole(role);
         return new RedirectView("/app/roles/list");
     }

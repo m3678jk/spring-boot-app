@@ -33,6 +33,23 @@ public class Producer {
         return id == producer.id && Objects.equals(name, producer.name);
     }
 
+    public void addProduct(Product product) {
+        products.add(product);
+        product.setProducer(this);
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
+        product.setProducer(null);
+    }
+
+    @Override
+    public String toString() {
+        return "Producer{" +
+                "id=" + id +
+                ", name='" + name;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id, name);

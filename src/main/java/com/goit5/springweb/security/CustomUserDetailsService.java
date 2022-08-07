@@ -1,7 +1,7 @@
 package com.goit5.springweb.security;
 
 import com.goit5.springweb.feature.user.User;
-import com.goit5.springweb.feature.user.UserDto;
+import com.goit5.springweb.feature.user.UserSecurity;
 import com.goit5.springweb.feature.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user= userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
 
-        return UserDto.fromUser(user);
+        return UserSecurity.fromUser(user);
     }
 
 
@@ -34,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 //    }
 
 
-//    public UserDto saveUser(UserDto userDto) throws ValidationException {
+//    public UserSecurity saveUser(UserSecurity userDto) throws ValidationException {
 //
 ////        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 ////        user.setRoles(new HashSet<>(roleRepository.findAll()));
@@ -58,19 +58,19 @@ public class CustomUserDetailsService implements UserDetailsService {
 //        this.userRepository.deleteById(userId);
 //    }
 //
-//    public UserDto findByEmail(String email) {
+//    public UserSecurity findByEmail(String email) {
 //        User user = userRepository.findByEmail(email);
 //        return user != null ? this.userConverter.fromUserToUserDto(user) : null;
 //    }
 //
-//    public List<UserDto> findAll() {
+//    public List<UserSecurity> findAll() {
 //        return userRepository.findAll()
 //                .stream()
 //                .map((it) -> userConverter.fromUserToUserDto(it))
 //                .collect(Collectors.toList());
 //    }
 //
-//    private void validateUserDto(UserDto userDto) throws ValidationException {
+//    private void validateUserDto(UserSecurity userDto) throws ValidationException {
 //        if (Objects.isNull(userDto)) {
 //            throw new ValidationException("Object user is null");
 //        } else if (Objects.isNull(userDto.getEmail()) || userDto.getEmail().isEmpty()) {

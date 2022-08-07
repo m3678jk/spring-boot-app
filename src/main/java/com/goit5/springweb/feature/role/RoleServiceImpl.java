@@ -1,6 +1,5 @@
 package com.goit5.springweb.feature.role;
 
-import com.goit5.springweb.exception.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository repository;
 
     @Override
-    public void saveRole(Role role) throws ValidationException {
+    public void saveRole(Role role) {
         repository.save(role);
     }
 

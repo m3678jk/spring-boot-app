@@ -1,22 +1,16 @@
 package com.goit5.springweb.security;
 
-import com.goit5.springweb.exception.ValidationException;
-import com.goit5.springweb.feature.role.Role;
 import com.goit5.springweb.feature.role.RoleRepository;
 import com.goit5.springweb.feature.user.User;
-import com.goit5.springweb.feature.user.UserDto;
 import com.goit5.springweb.feature.user.UserRepository;
 import com.goit5.springweb.feature.user.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -42,7 +36,7 @@ public class HomeController {
 
     }
 //    @PostMapping("/register")
-//    public ModelAndView register(@RequestBody UserDto user) throws ValidationException {
+//    public ModelAndView register(@RequestBody UserSecurity user) throws ValidationException {
 ////        User newUser = new User();
 ////        newUser.setEmail(user.getEmail());
 ////        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
