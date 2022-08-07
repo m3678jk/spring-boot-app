@@ -26,7 +26,7 @@ public class UserController {
     public ModelAndView findAll() {
         log.info("Handling find all users request");
         List<User> list = userService.findAll();
-        ModelAndView modelAndView = new ModelAndView("user-info");
+        ModelAndView modelAndView = new ModelAndView("user-list");
         modelAndView.addAllObjects(Map.of("list", list));
         return modelAndView;
 
@@ -35,17 +35,12 @@ public class UserController {
     //TODO without BindingResult doesn't work . find out why
     @GetMapping("/create-new")
     public ModelAndView showForm(UserSecurity user, BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView("simple-registration");
+        ModelAndView modelAndView = new ModelAndView("edit-user-form");
         List<Role> roles = roleService.findAll();
         modelAndView.addAllObjects(Map.of("user", user, "allRoles", roles));
         return modelAndView;
     }
 
-
-    //    @ModelAttribute("roleList")
-//    public List<Role> getList(){
-//        return roleService.findAll();
-//    }
     @PostMapping("/create-new")
     public RedirectView submitForm(@ModelAttribute("user") UserSecurity user) {
         userService.saveUser(user);
@@ -55,7 +50,7 @@ public class UserController {
     @RequestMapping("/update")
     public ModelAndView showEditForm(@RequestParam Long id) {
         log.info("Handling update user request: " + id);
-        ModelAndView modelAndView = new ModelAndView("simple-registration");
+        ModelAndView modelAndView = new ModelAndView("edit-user-form");
         User user = userService.findById(id);
         List<Role> roles = roleService.findAll();
         modelAndView.addAllObjects(Map.of("user", user, "allRoles", roles));
@@ -69,5 +64,5 @@ public class UserController {
         userService.deleteUser(id);
         return new RedirectView("/app/users/list");
     }
-//
+
 }

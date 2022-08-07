@@ -2,11 +2,7 @@ package com.goit5.springweb.feature.product;
 
 import com.goit5.springweb.feature.producer.Producer;
 import com.goit5.springweb.feature.producer.ProducerService;
-import com.goit5.springweb.feature.role.Role;
-import com.goit5.springweb.feature.user.User;
-import com.goit5.springweb.feature.user.UserSecurity;
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,11 +49,10 @@ public class ProductController {
         return modelAndView;
     }
 
-    @RequestMapping("/delete/{id}") //Post and Delete does not work
+    @RequestMapping("/delete/{id}")
     public RedirectView deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return new RedirectView("/app/products/list");
     }
-
 
 }

@@ -29,7 +29,7 @@ public class RoleController {
 
     @GetMapping("/create-new")
     public ModelAndView showForm(Role role) {
-        ModelAndView modelAndView = new ModelAndView("role-new-form");
+        ModelAndView modelAndView = new ModelAndView("edit-role-form");
         modelAndView.addAllObjects(Map.of("role", role));
         return modelAndView;
     }
@@ -43,7 +43,7 @@ public class RoleController {
     @RequestMapping("/update")
     public ModelAndView showEditForm(@RequestParam Long id) {
         log.info("Handling update role request: " + id);
-        ModelAndView modelAndView = new ModelAndView("role-new-form");
+        ModelAndView modelAndView = new ModelAndView("edit-role-form");
         Role role = roleService.findById(id);
         modelAndView.addAllObjects(Map.of("role", role));
         return modelAndView;

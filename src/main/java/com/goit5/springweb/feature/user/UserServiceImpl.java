@@ -3,6 +3,7 @@ package com.goit5.springweb.feature.user;
 import com.goit5.springweb.feature.role.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void saveUser(UserSecurity userSecurity) {
@@ -46,7 +48,7 @@ public class UserServiceImpl implements UserService {
             }
             newUser.setEmail(userSecurity.getEmail());
             newUser.setLastName(userSecurity.getLastName());
-            newUser.setPassword(userSecurity.getPassword());
+            newUser.setPassword(passwordEncoder.encode(userSecurity.getPassword()));
             newUser.setFirstName(userSecurity.getFirstName());
             userRepository.save(newUser);
         }

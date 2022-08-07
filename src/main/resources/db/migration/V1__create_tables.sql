@@ -28,11 +28,13 @@ CREATE TABLE role_users(
 );
 
 INSERT INTO t_user(first_name,last_name,email,password) values
-("name", "password:111", "test@mail", "$2a$12$xLpK3hAhnHWtvRUHGxIJjuRxMbJ0N1cJHYcmzZPblhrEe.dqMVuFy")
+("admin", "adminLastName", "admin@mail", "$2a$12$xLpK3hAhnHWtvRUHGxIJjuRxMbJ0N1cJHYcmzZPblhrEe.dqMVuFy"),
+("user", "userLastName", "user@mail", "$2a$12$hR5ICtBWiPaHz7ZZ1uj9.OCgUZfwPmeW8MhBWWNUuayIhMsU/yrqS")
 ;
 
 INSERT INTO role_users values
-(1,1)
+(1,1),
+(2,2)
 ;
 
 CREATE TABLE producer(

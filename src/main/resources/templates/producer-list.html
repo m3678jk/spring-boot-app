@@ -1,0 +1,63 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <title>Producer Management</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark"
+         style="background-color: tomato">
+        <div>
+            <a href="https://www.javaguides.net" class="navbar-brand"> Producer Management</a>
+        </div>
+
+        <ul class="navbar-nav">
+            <li><a href="/"
+                   class="nav-link">Main menu</a></li>
+        </ul>
+    </nav>
+</header>
+<br>
+
+
+<div class="row">
+    <div class="container">
+        <h3 class="text-center">List of Producers</h3>
+        <hr>
+        <div class="container text-left">
+            <a href="/app/producers/create-new" class="btn btn-success">Add
+                New Prodducer</a>
+        </div>
+        <br>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Products</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${list}">
+                <td th:text="${p.key.id}"></td>
+                <td th:text="${p.key.name}"></td>
+                <td th:text="${p.value}"></td>
+            <td><a th:href="'/app/producers/update?id=' + ${p.key.id}">Edit</a>
+                <a th:href="'/app/producers/delete/'+ ${p.key.id}">Delete</a>
+                <br>
+            </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+</html>

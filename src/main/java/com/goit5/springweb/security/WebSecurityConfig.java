@@ -20,33 +20,29 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @AllArgsConstructor
 public class WebSecurityConfig {
-//    private final CustomAuthenticationProvider authenticationProvider;
-
     private final CustomUserDetailsService userDetailsService; //ok
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-//                .csrf().disable()
-//                .cors().disable()
-//                .authorizeRequests()
-//                .antMatchers("/register", "/login").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin();
-
 
                 .authorizeRequests()
-                .antMatchers("/main", "/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/dashboard").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/", "/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/app/products/list").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers(HttpMethod.POST, "/app/products/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/app/products/**").hasAuthority("ADMIN")
+
+                .antMatchers(HttpMethod.GET, "/app/producers/list").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers(HttpMethod.POST, "/app/producers/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/app/producers/**").hasAuthority("ADMIN")
+
+                .antMatchers(HttpMethod.GET, "/app/roles/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/app/roles/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.GET, "/app/users/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST, "/app/users/**").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.GET, "/superadmin").authenticated()
 
-//                .antMatchers("/register", "/login").permitAll()
                 .and()
                 .formLogin();
-//                .formLogin(Customizer.withDefaults());
         return http.build();
     }
 

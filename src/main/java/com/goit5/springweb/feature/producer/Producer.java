@@ -22,7 +22,7 @@ public class Producer {
     private String name;
 
     @Getter
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "producer", cascade = {CascadeType.MERGE, CascadeType.PERSIST} , orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "producer", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Product> products = new ArrayList<>();
 
     @Override
