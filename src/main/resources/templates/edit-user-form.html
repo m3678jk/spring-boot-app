@@ -1,73 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="ISO-8859-1">
-    <title>User Registration</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+          crossorigin="anonymous">
 </head>
 <body>
-<div align="center">
-    <h1>User Registration</h1>
-    <form action="#" th:action="@{/app/users/create-new}" method="post" th:object="${user}">
-        <label>First name:</label>
-        <input type="text" th:field="*{firstName}"/><br/>
-
-        <label>Last name:</label>
-        <input type="text" th:field="*{lastName}"/><br/>
-
-        <label>E-mail:</label>
-        <input type="text" th:field="*{email}"/><br/>
-
-        <label>Password:</label>
-        <input type="password" th:field="*{password}"/><br/>
-
-        <!--        <label>Role:</label>-->
-        <!--        <select th:name="role" required="required">-->
-        <!--            <option th:value="'USER'" th:text="USER"></option>-->
-        <!--            <option th:value="'ADMIN'" th:text="ADMIN"></option>-->
-        <!--        </select>-->
-
-        <!--        <select>-->
-        <!--            <option th:each="r : ${roleList}" th:text= "${r.name}" th:value="${r.name}">-->
-        <!--            </option>-->
-        <!--        </select>-->
-
-        <label>Roles:
-            <input type="checkbox" name="roles"
-                   th:each="role : ${allRoles}"
-                   th:text="${role.name}"
-                   th:value="${role.id}"
-                   th:field="*{roles}"
-            />
-        </label>
-
-        <!--            <li>-->
-        <!--                <input th:field="role2"  type="checkbox" th:value="USER" />-->
-        <!--                <input name="_features" type="hidden" value="on" />-->
-        <!--                <label >User</label>-->
-        <!--            </li>-->
-        <!--            <li>-->
-        <!--                <input id="features3" name="features" type="checkbox" value="PH_CORRECTOR" />-->
-        <!--                <input name="_features" type="hidden" value="on" />-->
-        <!--                <label for="features3">PH Corrector used</label>-->
-        <!--            </li>-->
-        <!--        </ul>-->
 
 
-        <!--        <select id="multiple-hobbies" th:field="*{hobbieslist}" multiple="multiple">-->
+<br>
+<br>
+<div class="container-md">
 
-        <!--            <option th:each="hobby: ${predefinedhobbylist}"-->
-        <!--                    th:value="${hobby}" th:text="${hobby}">-->
-        <!--&lt;!&ndash;        </select>&ndash;&gt;-->
-        <!--                <label>Roles:</label>-->
-        <!--        <select th:field="*{listRoles}">-->
-        <!--            <ul th:each="p : ${listRoles}" th:value="${p}" th:text="${p}" />-->
-        <!--        </select>-->
-        <!--        <br/>-->
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/app/users/list">List of users</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Create new user</li>
+        </ol>
+    </nav>
+
+    <br>
+
+    <div class="card-body">
+        <h1 class="card-title">User Registration </h1>
+        <br>
+        <div class="mb-3">
 
 
-        <button type="submit">Register</button>
-        <input type="hidden" th:field="*{id}"/>
-    </form>
+            <form action="#" th:action="@{/app/users/create-new}" method="post" th:object="${user}">
+                <label class="col-form-label">First name:</label><br/>
+                <input class="form-control form-control-sm" type="text" th:field="*{firstName}"/><br/>
+
+                <label class="col-form-label">Last name:</label><br/>
+                <input class="form-control form-control-sm" type="text" th:field="*{lastName}"/><br/>
+
+                <label class="col-form-label">E-mail:</label><br/>
+                <input class="form-control form-control-sm" type="text" th:field="*{email}"/> <br/>
+
+                <label class="col-form-label">Password:</label><br/>
+                <input class="form-control form-control-sm" type="password" th:field="*{password}"/><br/>
+
+                <label class="col-form-label">Roles:</label> <br>
+                <input class="form-check-input" type="checkbox" name="roles"
+                       th:each="role : ${allRoles}"
+                       th:text="${role.name}     "
+                       th:value="${role.id}"
+                       th:field="*{roles}"/>
+
+                <br>
+                <br>
+
+                <button class="btn btn-secondary" type="submit">Save</button>
+                <input type="hidden" th:field="*{id}"/>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

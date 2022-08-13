@@ -1,19 +1,15 @@
 package com.goit5.springweb.feature.producer;
 
-import com.goit5.springweb.feature.product.Product;
-import com.goit5.springweb.feature.role.Role;
-import com.goit5.springweb.feature.user.User;
-import com.goit5.springweb.feature.user.UserSecurity;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/app/producers")
 @AllArgsConstructor
 public class ProducerController {

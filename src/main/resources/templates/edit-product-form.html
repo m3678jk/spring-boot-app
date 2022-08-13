@@ -1,28 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+          crossorigin="anonymous">
 </head>
 <body>
-<div align="center">
-    <h1>Product Registration</h1>
-    <form action="#" th:action="@{/app/products/create-new}" method="post" th:object="${product}">
-        <label>Name:</label>
-        <input type="text" th:field="*{name}"/><br/>
 
-        <label>Price (xx.cc):</label>
-        <input type="text" th:field="*{price}"/><br/>
+<br>
+<br>
+<div class="container-md">
 
-        <label>Producer:</label>
-        <select th:name="producer" required="required">
-            <option th:each="p : ${allProducers}" th:text="${p.name}" th:value="${p.id}">
-            </option>
-        </select>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/app/products/list">List of products</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Create new product</li>
+        </ol>
+    </nav>
 
-        <button type="submit">Save</button>
-        <input type="hidden" th:field="*{id}"/>
-    </form>
+    <br>
+
+    <div class="card-body">
+        <h1 class="card-title">Product Registration </h1>
+        <br>
+        <div class="mb-3">
+            <form action="#" th:action="@{/app/products/create-new}" method="post" th:object="${product}">
+                <label class="col-form-label">Name:</label>
+
+                <input class="form-control form-control-sm" type="text" th:field="*{name}"/><br/>
+
+                <label class="col-form-label">Price:</label>
+
+                <input class="form-control form-control-sm" type="text" th:field="*{price}" placeholder="00.00"/><br/>
+
+                <label class="col-form-label">Producer:</label>
+
+                <select class="form-select form-select-sm" th:name="producer" required="required">
+                    <option th:each="p : ${allProducers}" th:text="${p.name}" th:value="${p.id}">
+                    </option>
+                </select>
+                <br>
+
+                <button type="submit" class="btn btn-secondary">Save</button>
+                <input type="hidden" th:field="*{id}"/>
+            </form>
+
+        </div>
+    </div>
 </div>
 </body>
 </html>

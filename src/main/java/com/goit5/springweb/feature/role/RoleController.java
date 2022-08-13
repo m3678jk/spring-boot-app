@@ -2,6 +2,7 @@ package com.goit5.springweb.feature.role;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@RestController
+@Controller
 @RequestMapping("/app/roles")
 @AllArgsConstructor
 @Log //  из ломбок библиотеки чтобы выводить логи.

@@ -3,6 +3,7 @@ package com.goit5.springweb.feature.product;
 import com.goit5.springweb.feature.producer.Producer;
 import com.goit5.springweb.feature.producer.ProducerService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,7 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/app/products")
 @AllArgsConstructor
 public class ProductController {
@@ -28,7 +29,9 @@ public class ProductController {
 
     @GetMapping("/create-new")
     public ModelAndView showForm(Product product, BindingResult bindingResult) {
+
         ModelAndView modelAndView = new ModelAndView("edit-product-form");
+
         List<Producer> allProducers = producerService.findAll();
         modelAndView.addAllObjects(Map.of("product", product, "allProducers", allProducers));
         return modelAndView;
