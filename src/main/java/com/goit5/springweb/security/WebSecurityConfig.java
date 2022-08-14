@@ -20,7 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @AllArgsConstructor
 public class WebSecurityConfig {
-    private final CustomUserDetailsService userDetailsService; //ok
+    private final CustomUserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -46,21 +46,12 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    //OK
     @Bean
     @Primary
     public AuthenticationManagerBuilder injectCustomAuthProvider(AuthenticationManagerBuilder auth) throws Exception {
         return auth.authenticationProvider(authProvider());
     }
 
-
-//    @Bean
-//    public AuthenticationManager authenticationManager(
-//            AuthenticationConfiguration authenticationConfiguration) throws Exception {
-//        return authenticationConfiguration.getAuthenticationManager();
-//    }
-
-    //OK
     @Bean
     @Qualifier
     protected DaoAuthenticationProvider authProvider() {
@@ -70,11 +61,9 @@ public class WebSecurityConfig {
         return authProvider;
     }
 
-    //OK
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder(12);
     }
-
 
 }

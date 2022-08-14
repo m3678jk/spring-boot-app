@@ -2,7 +2,7 @@ CREATE TABLE t_user(
 id bigint NOT NULL AUTO_INCREMENT,
 first_name varchar(300) NOT NULL,
 last_name varchar(300) NOT NULL,
-email varchar(300) NOT NULL,
+email varchar(300) NOT NULL UNIQUE,
 password varchar(300),
 primary key (id)
 );

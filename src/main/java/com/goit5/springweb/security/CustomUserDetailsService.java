@@ -17,66 +17,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user= userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
-
         return UserSecurity.fromUser(user);
     }
-
-
-//    @Override
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//        User user = userRepository.findByEmail(email);
-//
-//        if (user == null) {
-//            throw new UsernameNotFoundException("User not found");
-//        }
-//
-//        return user;
-//    }
-
-
-//    public UserSecurity saveUser(UserSecurity userDto) throws ValidationException {
-//
-////        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-////        user.setRoles(new HashSet<>(roleRepository.findAll()));
-////        userRepository.save(user);
-//        User userFromDB = userRepository.findByEmail(userDto.getEmail());
-//
-//        if (userFromDB != null) {
-//            return userConverter.fromUserToUserDto(userFromDB);
-//        }
-//        User user = userConverter.fromUserDtoToUser(userDto);
-//        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
-//        user.setRoles(new HashSet<>(roleRepository.findAll()));
-//
-//        User savedUser = userRepository.save(userConverter.fromUserDtoToUser(userDto));
-//
-//        return userConverter.fromUserToUserDto(savedUser);
-//
-//    }
-//
-//    public void deleteUser(long userId) {
-//        this.userRepository.deleteById(userId);
-//    }
-//
-//    public UserSecurity findByEmail(String email) {
-//        User user = userRepository.findByEmail(email);
-//        return user != null ? this.userConverter.fromUserToUserDto(user) : null;
-//    }
-//
-//    public List<UserSecurity> findAll() {
-//        return userRepository.findAll()
-//                .stream()
-//                .map((it) -> userConverter.fromUserToUserDto(it))
-//                .collect(Collectors.toList());
-//    }
-//
-//    private void validateUserDto(UserSecurity userDto) throws ValidationException {
-//        if (Objects.isNull(userDto)) {
-//            throw new ValidationException("Object user is null");
-//        } else if (Objects.isNull(userDto.getEmail()) || userDto.getEmail().isEmpty()) {
-//            throw new ValidationException("Email is empty");
-//        }
-//    }
 
 
 }
