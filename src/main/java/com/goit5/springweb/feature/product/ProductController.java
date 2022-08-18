@@ -11,6 +11,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/app/products")
@@ -44,7 +45,7 @@ public class ProductController {
     }
 
     @RequestMapping("/update")
-    public ModelAndView showEditForm(@RequestParam Long id) {
+    public ModelAndView showEditForm(@RequestParam UUID id) {
         ModelAndView modelAndView = new ModelAndView("edit-product-form");
         Product product = productService.findById(id);
         List<Producer> producers = producerService.findAll();
@@ -53,7 +54,7 @@ public class ProductController {
     }
 
     @RequestMapping("/delete/{id}")
-    public RedirectView deleteProduct(@PathVariable Long id) {
+    public RedirectView deleteProduct(@PathVariable UUID id) {
         productService.deleteProduct(id);
         return new RedirectView("/app/products/list");
     }

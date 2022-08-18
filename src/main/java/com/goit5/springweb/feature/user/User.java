@@ -4,6 +4,8 @@ package com.goit5.springweb.feature.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.goit5.springweb.feature.role.Role;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.*;
@@ -16,8 +18,9 @@ import java.util.*;
 @Table(name = "t_user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
     private String email;
     @JsonIgnore
     private String password;

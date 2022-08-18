@@ -8,20 +8,21 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 public class UserSecurity implements UserDetails {
-    private long id;
+    private UUID id;
     private String email;
     @JsonIgnore
     private String password;
     private String firstName;
     private String lastName;
-
       private List<SimpleGrantedAuthority> authorities ;
     private List<Role> roles;
     @Override

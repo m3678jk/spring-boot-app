@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -18,16 +19,16 @@ public class UserServiceImpl implements UserService {
     public void saveUser(UserSecurity userSecurity) {
         List<Role> usersDtoRoles = userSecurity.getRoles();
 
-        if (userSecurity.getId() != 0) {
+        if (userSecurity.getId() != null) {
             User user = userRepository.findById(userSecurity.getId()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
             List<Role> usersRoles = user.getRoles();
-
             for (Role r : usersDtoRoles) {
                 if (!usersRoles.contains(r)) {
                     user.addRoles(r);
                 }
             }
+
             for (Role r : usersRoles) {
                 if (!usersDtoRoles.contains(r)) {
                     user.removeRoles(r);
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
             user.setEmail(userSecurity.getEmail());
             user.setLastName(userSecurity.getLastName());
-            user.setPassword(userSecurity.getPassword());
+            user.setPassword(passwordEncoder.encode(userSecurity.getPassword()));
             user.setFirstName(userSecurity.getFirstName());
 
             userRepository.save(user);
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(UUID id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         List<Role> roles = user.getRoles();
         List<Role> reserve = List.copyOf(roles);
@@ -80,7 +81,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(UserSecurity userSecurity, Long id) {
+    public void updateUser(UserSecurity userSecurity, UUID id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         user.setEmail(userSecurity.getEmail());
         user.setLastName(user.getLastName());
@@ -103,7 +104,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(UUID id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return user;
     }

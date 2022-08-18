@@ -9,12 +9,13 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 @Controller
 @RequestMapping("/app/roles")
 @AllArgsConstructor
-@Log //  из ломбок библиотеки чтобы выводить логи.
+@Log
 public class RoleController {
 
     private final RoleService roleService;
@@ -42,7 +43,7 @@ public class RoleController {
     }
 
     @RequestMapping("/update")
-    public ModelAndView showEditForm(@RequestParam Long id) {
+    public ModelAndView showEditForm(@RequestParam UUID id) {
         log.info("Handling update role request: " + id);
         ModelAndView modelAndView = new ModelAndView("edit-role-form");
         Role role = roleService.findById(id);
@@ -51,7 +52,7 @@ public class RoleController {
     }
     //TODO fix cascade delete user + relation in role
     @RequestMapping("/delete/{id}") //Post and Delete does not work
-    public RedirectView deleteUsers(@PathVariable Long id) {
+    public RedirectView deleteUsers(@PathVariable UUID id) {
         log.info("Handling delete user request: " + id);
         roleService.deleteRole(id);
         return new RedirectView("/app/roles/list");

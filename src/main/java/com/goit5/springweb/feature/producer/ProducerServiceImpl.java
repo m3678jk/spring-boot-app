@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,7 +17,7 @@ public class ProducerServiceImpl implements ProducerService {
     private final ProducerRepository producerRepository;
     @Override
     public void saveProducer(Producer producer) {
-        if(producer.getId()==0) {
+        if(producer.getId()==null) {
             producerRepository.save(producer);
         } else {
             List<Product> products = producer.getProducts();
@@ -29,7 +30,7 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     @Override
-    public void deleteProducer(Long id) {
+    public void deleteProducer(UUID id) {
         Producer producer = findById(id);
         producerRepository.delete(producer);
     }
@@ -40,7 +41,7 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     @Override
-    public Producer findById(Long id) {
+    public Producer findById(UUID id) {
         return producerRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Producer not found"));
     }
 

@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -16,9 +17,9 @@ import java.util.Objects;
 @Table(name = "product")
 public class Product {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Id
-    private long id;
+    private UUID id;
     private String name;
     private BigDecimal price;
 

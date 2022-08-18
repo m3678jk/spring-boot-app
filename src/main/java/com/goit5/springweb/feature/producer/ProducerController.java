@@ -39,7 +39,7 @@ public class ProducerController {
     }
 
     @RequestMapping("/update")
-    public ModelAndView showEditForm(@RequestParam Long id) {
+    public ModelAndView showEditForm(@RequestParam UUID id) {
         ModelAndView modelAndView = new ModelAndView("edit-producer-form");
         Producer producer = producerService.findById(id);
 
@@ -48,7 +48,7 @@ public class ProducerController {
     }
 
     @RequestMapping("/delete/{id}")
-    public RedirectView deleteUsers(@PathVariable Long id) {
+    public RedirectView deleteUsers(@PathVariable UUID id) {
         producerService.deleteProducer(id);
         return new RedirectView("/app/producers/list");
     }

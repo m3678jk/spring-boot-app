@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +17,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void deleteRole(Long id) {
+    public void deleteRole(UUID id) {
         Role role = repository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Role not found"));
         repository.delete(role);
     }
@@ -34,14 +35,14 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void updateRole(Role role, Long id) {
+    public void updateRole(Role role, UUID id) {
         Role roleToUpdate = findById(id);
         roleToUpdate.setName(role.getName());
         repository.save(roleToUpdate);
     }
 
     @Override
-    public Role findById(Long id) {
+    public Role findById(UUID id) {
         return repository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Role not found"));
     }
 }
