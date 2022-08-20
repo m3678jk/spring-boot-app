@@ -50,7 +50,7 @@ public class RoleController {
         modelAndView.addAllObjects(Map.of("role", role));
         return modelAndView;
     }
-    //TODO fix cascade delete user + relation in role
+
     @RequestMapping("/delete/{id}") //Post and Delete does not work
     public RedirectView deleteUsers(@PathVariable UUID id) {
         log.info("Handling delete user request: " + id);

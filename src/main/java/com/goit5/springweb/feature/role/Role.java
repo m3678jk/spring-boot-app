@@ -20,10 +20,8 @@ public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue
     private UUID id;
-
     @Column(name = "name")
     private String name;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<User> users = new ArrayList<>();

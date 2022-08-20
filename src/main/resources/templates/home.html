@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,19 +20,27 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
+                    <th:block sec:authorize="isAuthenticated()">
                     <a class="nav-link" href="/app/products/list">Products</a>
+                    </th:block>
                 </li>
 
                 <li class="nav-item">
+                    <th:block sec:authorize="isAuthenticated()">
                     <a class="nav-link" href="/app/producers/list">Producers</a>
+                    </th:block>
                 </li>
 
                 <li class="nav-item">
+                    <th:block sec:authorize="hasAuthority('ADMIN')">
                     <a class="nav-link" href="/app/users/list">Users</a>
+                    </th:block>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item" >
+                    <th:block sec:authorize="hasAuthority('ADMIN')">
                     <a class="nav-link" href="/app/roles/list">Roles</a>
+                    </th:block>
                 </li>
 
             </ul>
@@ -38,9 +48,16 @@
             <div class="d-flex">
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <th:block sec:authorize="!isAuthenticated()">
+                            <a class="nav-link" href="/registration">Sign-up</a>
+                        </th:block>
+                    </li>
 
                     <li class="nav-item">
+                        <th:block sec:authorize="!isAuthenticated()">
                         <a class="nav-link" href="/login">Login</a>
+                        </th:block>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>

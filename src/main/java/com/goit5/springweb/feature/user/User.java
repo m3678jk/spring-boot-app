@@ -1,11 +1,8 @@
 package com.goit5.springweb.feature.user;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.goit5.springweb.feature.role.Role;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.*;
@@ -18,14 +15,11 @@ import java.util.*;
 @Table(name = "t_user")
 public class User {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue
     private UUID id;
     private String email;
     @JsonIgnore
     private String password;
-//    @Transient
-//    private String passwordConfirm;
 
     private String firstName;
     private String lastName;
@@ -51,12 +45,6 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
-    //    public enum Role{
-//        USER,
-//        ADMIN
-//
-//    }
-
 
     @Override
     public boolean equals(Object o) {

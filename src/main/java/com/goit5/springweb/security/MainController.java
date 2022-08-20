@@ -1,4 +1,4 @@
-package com.goit5.springweb.feature;
+package com.goit5.springweb.security;
 
 import com.goit5.springweb.feature.role.Role;
 import com.goit5.springweb.feature.role.RoleService;
@@ -44,6 +44,20 @@ public class MainController {
         ModelAndView modelAndView = new ModelAndView("home");
         return modelAndView;
 
+    }
+
+    @GetMapping("/registration")
+    public ModelAndView showForm(UserSecurity user, BindingResult bindingResult) { //without BindingResult doesn't work
+        ModelAndView modelAndView = new ModelAndView("sign-up-form");
+        modelAndView.addAllObjects(Map.of("user", user));
+        return modelAndView;
+    }
+
+    @PostMapping("/registration")
+    public RedirectView submitForm(@ModelAttribute("user") UserSecurity user) {
+
+        userService.saveUser(user);
+        return new RedirectView("/");
     }
 
 

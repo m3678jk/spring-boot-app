@@ -19,24 +19,28 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/app/products/list">Products</a>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <a class="nav-link" href="/app/products/list">Products</a>
+                    </th:block>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/app/producers/list">Producers</a>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <a class="nav-link" href="/app/producers/list">Producers</a>
+                    </th:block>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/app/users/list">Users</a>
+                    <th:block sec:authorize="hasAuthority('ADMIN')">
+                        <a class="nav-link" href="/app/users/list">Users</a>
+                    </th:block>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/app/roles/list">Roles</a>
+                <li class="nav-item" >
+                    <th:block sec:authorize="hasAuthority('ADMIN')">
+                        <a class="nav-link" href="/app/roles/list">Roles</a>
+                    </th:block>
                 </li>
 
             </ul>
@@ -46,7 +50,9 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                        <th:block sec:authorize="!isAuthenticated()">
+                            <a class="nav-link" href="/login">Login</a>
+                        </th:block>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
@@ -64,9 +70,11 @@
         <div class="container">
             <h1 class="card-title">List of Products</h1>
             <hr>
+            <th:block sec:authorize="hasAuthority('ADMIN')">
             <div class="container text-left">
                 <a href="/app/products/create-new" class="btn btn-secondary"> Create New Product</a>
             </div>
+            </th:block>
 
             <br>
             <table class="table table-bordered">
@@ -87,10 +95,12 @@
                     <td th:text="${p.producer.name}"></td>
 
                     <td>
+                        <th:block sec:authorize="hasAuthority('ADMIN')">
                         <a class="btn btn-outline-secondary" role="button"
                            th:href="'/app/products/update?id=' + ${p.id}">Edit</a>
                         <a class="btn btn-outline-secondary" role="button"
                            th:href="'/app/products/delete/'+ ${p.id}">Delete</a>
+                        </th:block>
 
                     </td>
                 </tr>

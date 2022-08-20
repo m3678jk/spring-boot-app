@@ -33,8 +33,6 @@ INSERT INTO t_user(id, first_name,last_name,email,password) values
 ;
 
 
-
-
 CREATE TABLE producer(
 id binary(16) NOT NULL,
 name varchar(300) NOT NULL,

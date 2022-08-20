@@ -32,9 +32,8 @@ public class UserController {
 
     }
 
-    //TODO without BindingResult doesn't work . find out why
     @GetMapping("/create-new")
-    public ModelAndView showForm(UserSecurity user, BindingResult bindingResult) {
+    public ModelAndView showForm(UserSecurity user, BindingResult bindingResult) { //without BindingResult doesn't work
         ModelAndView modelAndView = new ModelAndView("edit-user-form");
         List<Role> roles = roleService.findAll();
         modelAndView.addAllObjects(Map.of("user", user, "allRoles", roles));
@@ -57,8 +56,7 @@ public class UserController {
         return modelAndView;
     }
 
-    //TODO fix cascade delete user + relation in role
-    @RequestMapping("/delete/{id}") //Post and Delete does not work
+    @RequestMapping("/delete/{id}") //Post and Delete does not work only requestMapping
     public RedirectView deleteUsers(@PathVariable UUID id) {
         log.info("Handling delete user request: " + id);
         userService.deleteUser(id);

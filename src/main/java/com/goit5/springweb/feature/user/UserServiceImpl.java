@@ -1,6 +1,7 @@
 package com.goit5.springweb.feature.user;
 
 import com.goit5.springweb.feature.role.Role;
+import com.goit5.springweb.feature.role.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private final RoleRepository roleRepository;
+
     @Override
     public void saveUser(UserSecurity userSecurity) {
         List<Role> usersDtoRoles = userSecurity.getRoles();
@@ -23,6 +26,7 @@ public class UserServiceImpl implements UserService {
             User user = userRepository.findById(userSecurity.getId()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
             List<Role> usersRoles = user.getRoles();
+
             for (Role r : usersDtoRoles) {
                 if (!usersRoles.contains(r)) {
                     user.addRoles(r);
@@ -43,9 +47,14 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
         } else {
             User newUser = new User();
+            if (usersDtoRoles !=null) {
+                for (Role r : usersDtoRoles) {
+                    newUser.addRoles(r);
+                }
+            } else {
 
-            for (Role r : usersDtoRoles) {
-                newUser.addRoles(r);
+                Role userRole = roleRepository.findByName("USER").orElseThrow(() -> new UsernameNotFoundException("Role not found"));
+                newUser.addRoles(userRole);
             }
             newUser.setEmail(userSecurity.getEmail());
             newUser.setLastName(userSecurity.getLastName());
