@@ -1,0 +1,1 @@
+http://springbootdemo-env.eba-88nacrfx.eu-west-1.elasticbeanstalk.com/
